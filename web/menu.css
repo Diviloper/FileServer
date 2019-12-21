@@ -1,0 +1,27 @@
+#fileList {
+    padding: 0 10%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+body {
+    font-family: Roboto, serif;
+    background-image: radial-gradient(circle, #93bb68, #76c182, #58c69f, #40c8bb, #3bc8d3, #26c3de, #22bee8, #36b7ef, #17abf3, #119ef5, #2f8ff5, #4e7ff0);
+    background-repeat: no-repeat;
+    margin: 0;
+    min-height: 100%;
+}
+
+html {
+    margin: 0;
+    min-height: 100%;
+}

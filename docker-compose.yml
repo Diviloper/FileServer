@@ -1,0 +1,10 @@
+version: '3'
+services:
+  file_server:
+    volumes:
+    # Change "E:/FileServer/ to desired directory
+    - E:/FileServer/:/files/
+    build: .
+    # To change the port listened by docker, change 5555 to the desired port. Do NOT change port 8888
+    ports:
+      - "5555:8888"

@@ -1,0 +1,41 @@
+.entry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    border: 1px solid black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+
+    background-color: snow;
+
+    padding: 5px 10px;
+    min-width: 200px;
+    width: 20%;
+    max-width: 80%;
+    margin: 5px;
+}
+
+.entry:hover {
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.entryFilename {
+    white-space: nowrap;
+    overflow: scroll;
+    width: 70%;
+}
+@media only screen and (min-width: 600px) {
+    .entryFilename {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.entryIcon, .entryFiller {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}

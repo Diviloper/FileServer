@@ -1,0 +1,15 @@
+name: home_file_server
+description: An empty Aqueduct application.
+version: 0.0.1
+author: stable|kernel <jobs@stablekernel.com>
+
+environment:
+  sdk: ">=2.0.0 <3.0.0"
+
+dependencies:
+  aqueduct: ^3.2.1
+
+dev_dependencies:
+  test: ^1.6.0
+  aqueduct_test: ^1.0.1
+  extra_pedantic: 1.1.1
