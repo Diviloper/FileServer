@@ -1,4 +1,5 @@
 import 'package:home_file_server/file_list_controller.dart';
+import 'package:home_file_server/player_controller.dart';
 
 import 'home_file_server.dart';
 
@@ -14,6 +15,7 @@ class HomeFileServerChannel extends ApplicationChannel {
     final router = Router();
 
     router.route("/").link(() => FileListController());
+    router.route("/player").link(() => PlayerController());
     router.route("/files/*").link(() => FileController("/files/"));
     router.route("/web/*").link(() => FileController("web/"));
 

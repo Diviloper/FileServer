@@ -1,12 +1,13 @@
 import 'package:home_file_server/home_file_server.dart';
 import 'package:home_file_server/html_renderer.dart';
+import 'package:home_file_server/utils.dart';
 
-class FileListController extends Controller {
+class FileListController extends ResourceController {
   final HTMLRenderer renderer = HTMLRenderer();
 
-  @override
-  Future<RequestOrResponse> handle(Request request) async {
-    final String dir = request.raw.uri.queryParameters['dir'] ?? '/files';
+  @Operation.get()
+  Future<Response> getFileList(
+      {@Bind.query('dir') String dir = '/files'}) async {
     final Directory fileDir = Directory(dir);
     String fileListHTML = dir == '/files'
         ? ""
@@ -27,10 +28,10 @@ class FileListController extends Controller {
           },
         );
       } else if (entry is File) {
+        final String onClick = "window.location = '${entry.path}'";
         fileListHTML += renderer.renderHTML(
           "web/entry.html",
-          {'filePath': entry.path,
-            'fileName': entry.path.substring(entry.path.lastIndexOf('/') + 1)},
+          {'onClick': onClick, 'fileName': entry.name},
         );
       }
     }
