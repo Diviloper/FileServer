@@ -9,7 +9,9 @@ class FileListController extends ResourceController {
   Future<Response> getFileList(
       {@Bind.query('dir') String dir = '/files'}) async {
     final Directory fileDir = Directory(dir);
-    String fileListHTML = dir == '/files'
+    String fileListHTML = dir == '/files' ||
+            RegExp(r'^[A-Z]:$').hasMatch(dir) ||
+            !fileDir.parent.existsSync()
         ? ""
         : renderer.renderHTML(
             "web/dirEntry.html",
@@ -19,16 +21,17 @@ class FileListController extends ResourceController {
             },
           );
     for (final entry in fileDir.listSync(followLinks: false)) {
+      final String path = entry.path.replaceAll('\\', '/');
       if (entry is Directory) {
         fileListHTML += renderer.renderHTML(
           "web/dirEntry.html",
           {
-            'dirName': entry.path.substring(entry.path.lastIndexOf('/') + 1),
-            'dirPath': entry.path,
+            'dirName': path.substring(entry.path.lastIndexOf('/') + 1),
+            'dirPath': path,
           },
         );
       } else if (entry is File) {
-        final String onClick = "window.location = '${entry.path}'";
+        final String onClick = "window.location = '${path}'";
         fileListHTML += renderer.renderHTML(
           "web/entry.html",
           {'onClick': onClick, 'fileName': entry.name},
