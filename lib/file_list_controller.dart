@@ -31,7 +31,10 @@ class FileListController extends ResourceController {
           },
         );
       } else if (entry is File) {
-        final String onClick = "window.location = '${path}'";
+        final String onClick =
+            ['mp4', 'webm', 'ogg'].contains(entry.extension)
+                ? "window.location = 'player?file=$path'"
+                : "window.location = '$path'";
         fileListHTML += renderer.renderHTML(
           "web/entry.html",
           {'onClick': onClick, 'fileName': entry.name},
