@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Player</title>
+    <link rel="stylesheet" type="text/css" href="/web/player.css">
 </head>
 <body>
-<video preload autoplay controls height="90%" width="90%">
+<video preload autoplay controls>
     <source src="{{file}}" type="{{type}}">
+    {{tracks}}
 </video>
 </body>
 </html>
