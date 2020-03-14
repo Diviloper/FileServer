@@ -6,9 +6,9 @@ class HTMLRenderer {
     Map<String, String> templateVariables,
   ) {
     final template = _loadHTMLTemplate(path);
-    return template.replaceAllMapped(RegExp("{{([a-zA-Z_]+)}}"), (match) {
+    return template.replaceAllMapped(RegExp('{{([a-zA-Z_]+)}}'), (match) {
       final key = match.group(1);
-      return templateVariables[key] ?? "null";
+      return templateVariables[key] ?? 'null';
     });
   }
 

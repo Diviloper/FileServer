@@ -15,7 +15,7 @@ class PlayerController extends ResourceController {
         ? '<track src="${subtitles.path}" kind="subtitles" srclang="en" label="English">'
         : '';
     return Response.ok(renderer.renderHTML(
-        "web/player.html", {'file': filePath, 'type': videoType, 'tracks': subtitlesHTML}))
+        'web/player.html', {'file': 'video/$filePath', 'type': videoType, 'tracks': subtitlesHTML}))
       ..contentType = ContentType.html;
   }
 }

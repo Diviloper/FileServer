@@ -1,5 +1,6 @@
 import 'package:home_file_server/file_list_controller.dart';
 import 'package:home_file_server/player_controller.dart';
+import 'package:home_file_server/video_server.dart';
 
 import 'home_file_server.dart';
 
@@ -13,12 +14,12 @@ class HomeFileServerChannel extends ApplicationChannel {
   Controller get entryPoint {
     final router = Router();
 
-    router.route("/").link(() => FileListController());
-    router.route("/player").link(() => PlayerController());
-    router.route("/files/*").link(() =>
-        FileController("/files/")..setContentTypeForExtension('vtt', ContentType('text', 'vtt')));
-    router.route("/web/*").link(() => FileController("web/"));
-
+    router.route('/').link(() => FileListController());
+    router.route('/player').link(() => PlayerController());
+    router.route('/files/*').link(() =>
+        FileController('/files/')..setContentTypeForExtension('vtt', ContentType('text', 'vtt')));
+    router.route('/video/*').link(() => VideoServer());
+    router.route('/web/*').link(() => FileController('web/'));
     return router;
   }
 }

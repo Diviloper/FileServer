@@ -12,9 +12,9 @@ class FileListController extends ResourceController {
     String fileListHTML = dir == '/files' ||
             RegExp(r'^[A-Z]:$').hasMatch(dir) ||
             !fileDir.parent.existsSync()
-        ? ""
+        ? ''
         : renderer.renderHTML(
-            "web/dirEntry.html",
+            'web/dirEntry.html',
             {
               'dirName': '..',
               'dirPath': dir.substring(0, dir.lastIndexOf('/'))
@@ -24,7 +24,7 @@ class FileListController extends ResourceController {
       final String path = entry.path.replaceAll('\\', '/');
       if (entry is Directory) {
         fileListHTML += renderer.renderHTML(
-          "web/dirEntry.html",
+          'web/dirEntry.html',
           {
             'dirName': path.substring(entry.path.lastIndexOf('/') + 1),
             'dirPath': path,
@@ -36,13 +36,13 @@ class FileListController extends ResourceController {
                 ? "window.location = 'player?file=$path'"
                 : "window.location = '$path'";
         fileListHTML += renderer.renderHTML(
-          "web/entry.html",
+          'web/entry.html',
           {'onClick': onClick, 'fileName': entry.name},
         );
       }
     }
     final String page = renderer.renderHTML(
-      "web/menu.html",
+      'web/menu.html',
       {'fileList': fileListHTML, 'dirName': dir},
     );
     return Response.ok(page)..contentType = ContentType.html;
