@@ -13,10 +13,6 @@ html {
     min-height: 100%;
 }
 
-.subtitles-div {
-    width: 50%;
-    margin-top: 1em;
-    display: flex;
-    justify-content: space-evenly;
-    align-content: center;
+video {
+    max-width: 100%;
 }
