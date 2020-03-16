@@ -2,7 +2,7 @@ import 'package:home_file_server/home_file_server.dart';
 
 Future main() async {
   final app = Application<HomeFileServerChannel>()
-      ..options.configurationFilePath = 'config.yaml';
+      ..options.configurationFilePath = './config.yaml';
 
   await app.start(numberOfInstances: 1);
 
