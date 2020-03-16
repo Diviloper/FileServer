@@ -3,6 +3,8 @@ include: package:extra_pedantic/analysis_options.yaml
 analyzer:
   strong-mode:
     implicit-casts: false
+  errors:
+    only_throw_errors: ignore
 
 linter:
   rules:
