@@ -47,12 +47,12 @@ class VideoServer extends ResourceController {
       ..contentType = ContentType('video', fileName.substring(fileName.lastIndexOf('.') + 1));
   }
 
-  void _removeVideoData(String videoName) {
+  static void _removeVideoData(String videoName) {
     _loadedVideos.remove(videoName);
     _loadedVideosTimes.remove(videoName);
   }
 
-  void _updateTimer(String fileName) {
+  static void _updateTimer(String fileName) {
     _loadedVideosTimes[fileName]?.cancel();
     _loadedVideosTimes[fileName] = Timer(
       const Duration(minutes: 30),
@@ -60,12 +60,12 @@ class VideoServer extends ResourceController {
     );
   }
 
-  Uint8List _getOrLoadVideo(String fileName) {
+  static Uint8List _getOrLoadVideo(String fileName) {
     if (_loadedVideos.containsKey(fileName)) {
       _updateTimer(fileName);
       return _loadedVideos[fileName];
     } else {
-      final videoFile = File(request.path.remainingPath);
+      final videoFile = File(fileName);
       if (!videoFile.existsSync()) {
         throw Response.notFound();
       } else if (!['mp4', 'webm', 'ogg'].contains(videoFile.extension)) {

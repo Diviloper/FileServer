@@ -6,35 +6,29 @@ class FileListController extends ResourceController {
   final HTMLRenderer renderer = HTMLRenderer();
 
   @Operation.get()
-  Future<Response> getFileList(
-      {@Bind.query('dir') String dir = '/files'}) async {
+  Future<Response> getFileList({@Bind.query('dir') String dir = '/files'}) async {
     final Directory fileDir = Directory(dir);
-    String fileListHTML = dir == '/files' ||
-            RegExp(r'^[A-Z]:$').hasMatch(dir) ||
-            !fileDir.parent.existsSync()
-        ? ''
-        : renderer.renderHTML(
-            'web/dirEntry.html',
-            {
-              'dirName': '..',
-              'dirPath': dir.substring(0, dir.lastIndexOf('/'))
-            },
-          );
+    String fileListHTML =
+        dir == '/files' || RegExp(r'^[A-Z]:$').hasMatch(dir) || !fileDir.parent.existsSync()
+            ? ''
+            : renderer.renderHTML(
+                'web/dirEntry.html',
+                {'dirName': '..', 'dirPath': dir.substring(0, dir.lastIndexOf('/'))},
+              );
     for (final entry in fileDir.listSync(followLinks: false)) {
       final String path = entry.path.replaceAll('\\', '/');
       if (entry is Directory) {
         fileListHTML += renderer.renderHTML(
           'web/dirEntry.html',
           {
-            'dirName': path.substring(entry.path.lastIndexOf('/') + 1),
+            'dirName': path.substring(path.lastIndexOf('/') + 1),
             'dirPath': path,
           },
         );
       } else if (entry is File) {
-        final String onClick =
-            ['mp4', 'webm', 'ogg'].contains(entry.extension)
-                ? "window.location = 'player?file=$path'"
-                : "window.location = '$path'";
+        final String onClick = ['mp4', 'webm', 'ogg'].contains(entry.extension)
+            ? "window.location = 'player?file=$path'"
+            : "window.location = '$path'";
         fileListHTML += renderer.renderHTML(
           'web/entry.html',
           {'onClick': onClick, 'fileName': entry.name},
