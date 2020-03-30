@@ -71,7 +71,7 @@ class VideoServer extends ResourceController {
       } else if (!['mp4', 'webm', 'ogg'].contains(videoFile.extension)) {
         throw Response.badRequest(body: 'File is not a video or it is an unsupported video');
       }
-      final videoBytes = videoFile.readAsBytesSync();
+      final videoBytes = _readVideoFile(videoFile);
       _loadedVideos[fileName] = videoBytes;
       _updateTimer(fileName);
       return videoBytes;
@@ -90,6 +90,19 @@ class VideoServer extends ResourceController {
             'Content-Range': 'bytes */$videoLength',
           },
           null);
+    }
+  }
+
+  static Uint8List _readVideoFile(File videoFile) {
+    try {
+      return videoFile.readAsBytesSync();
+    } on FileSystemException catch (error) {
+      if (error.osError.errorCode == 1) {
+        print('Adding write permissions to file ${videoFile.absolute.path}');
+        Process.runSync('chmod', ['+w', videoFile.absolute.path]);
+        return videoFile.readAsBytesSync();
+      }
+      rethrow;
     }
   }
 }
